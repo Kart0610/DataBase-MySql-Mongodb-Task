@@ -1,0 +1,65 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class EmployeeInsert {
+    public static void main(String[] args) {
+        
+        String jdbcURL = "jdbc:mysql://localhost:3306/task2?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+        String username = "root"; 
+        String password = "Kart@0610"; 
+
+       
+        String sql = "INSERT INTO Emp2 (empname, empage, esalary) VALUES (?, ?, ?)";
+
+        try {
+           
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            
+            Connection connection = DriverManager.getConnection(jdbcURL, username, password);
+            connection.createStatement().execute("TRUNCATE TABLE Emp2");
+
+            
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+           
+            stmt.setString(1, "Jenny");
+            stmt.setInt(2, 25);
+            stmt.setDouble(3, 10000);
+            stmt.executeUpdate();
+
+            
+            stmt.setString(1, "Jacky");
+            stmt.setInt(2, 30);
+            stmt.setDouble(3, 20000);
+            stmt.executeUpdate();
+
+            
+            stmt.setString(1, "Joe");
+            stmt.setInt(2, 20);
+            stmt.setDouble(3, 40000);
+            stmt.executeUpdate();
+
+            
+            stmt.setString(1, "John");
+            stmt.setInt(2, 40);
+            stmt.setDouble(3, 80000);
+            stmt.executeUpdate();
+
+            
+            stmt.setString(1, "Shameer");
+            stmt.setInt(2, 25);
+            stmt.setDouble(3, 90000);
+            stmt.executeUpdate();
+
+            
+            connection.close();
+
+            System.out.println("Data inserted successfully!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
